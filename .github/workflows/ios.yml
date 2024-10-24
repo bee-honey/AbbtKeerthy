@@ -61,6 +61,12 @@ jobs:
 
           # Import certificate and provisioning profile from secrets
           echo -n "$DIST_BUILD_CERT_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+          echo "$DIST_BUILD_CERT_BASE64"
+          file $CERTIFICATE_PATH
+          echo "$DIST_BUILD_CERT_BASE64" | tr -d '\n' | base64 --decode -o $CERTIFICATE_PATH
+          md5 $CERTIFICATE_PATH
+
+
           echo -n "$DIST_BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
 
           # Verify if the certificate file exists
@@ -99,6 +105,7 @@ jobs:
           echo $P12_PASSWORD
           echo $KEYCHAIN_PATH
           echo security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          md5 "$CERTIFICATE_PATH"
           security import "$CERTIFICATE_PATH" -P Apple@123 -A -t cert -f pkcs12
           # security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           # if [ $? -ne 0 ]; then
