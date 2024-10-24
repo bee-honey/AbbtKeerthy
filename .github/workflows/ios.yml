@@ -62,3 +62,14 @@ jobs:
           # Import certificate and provisioning profile from secrets
           echo -n "$DIST_BUILD_CERT_BASE64" | base64 --decode -o $CERTIFICATE_PATH
           echo -n "$DIST_BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+
+          # Verify if the certificate file exists
+          if [ ! -f "$CERTIFICATE_PATH" ]; then
+            echo "Certificate not found or invalid"
+            exit 1
+          fi
+
+          # Create temporary keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
