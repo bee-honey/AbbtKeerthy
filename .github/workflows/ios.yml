@@ -52,7 +52,12 @@ jobs:
           BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.DIST_BUILD_PROVISION_PROFILE_BASE64 }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
-          
+
+          # Create variables
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
           # apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           if [ -f "$PP_PATH" ]; then
@@ -61,11 +66,6 @@ jobs:
             echo "Provisioning profile not found: $PP_PATH"
             exit 1
           fi
-
-          # Create variables
-          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
-          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
-          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
 
           # Import certificate and provisioning profile from secrets
           echo -n "$DIST_BUILD_CERT_BASE64" | base64 --decode -o $CERTIFICATE_PATH
