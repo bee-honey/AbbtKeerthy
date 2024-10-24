@@ -94,8 +94,12 @@ jobs:
             exit 1
           fi
 
-          # # Import certificate to keychain
-          # security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          # Import certificate to keychain
+          echo $CERTIFICATE_PATH
+          echo $P12_PASSWORD
+          echo $KEYCHAIN_PATH
+          echo security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           # if [ $? -ne 0 ]; then
           #   echo "Failed to import certificate"
           #   exit 1
