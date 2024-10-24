@@ -81,5 +81,14 @@ jobs:
             exit 1
           fi
 
-          # Add keychain to the list
-          security list-keychain -d user -s $KEYCHAIN_PATH
+          # # Add keychain to the list
+          # security list-keychain -d user -s $KEYCHAIN_PATH
+
+          # # Apply provisioning profile
+          # mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          # if [ -f "$PP_PATH" ]; then
+          #   cp "$PP_PATH" ~/Library/MobileDevice/Provisioning\ Profiles/
+          # else
+          #   echo "Provisioning profile not found: $PP_PATH"
+          #   exit 1
+          # fi
