@@ -94,19 +94,19 @@ jobs:
             exit 1
           fi
 
-          # Import certificate to keychain
-          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          if [ $? -ne 0 ]; then
-            echo "Failed to import certificate"
-            exit 1
-          fi
+          # # Import certificate to keychain
+          # security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          # if [ $? -ne 0 ]; then
+          #   echo "Failed to import certificate"
+          #   exit 1
+          # fi
 
-          # Set partition list to ensure trust (optional step)
-          security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-          if [ $? -ne 0 ]; then
-            echo "Failed to set key partition list"
-            exit 1
-          fi
+          # # Set partition list to ensure trust (optional step)
+          # security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          # if [ $? -ne 0 ]; then
+          #   echo "Failed to set key partition list"
+          #   exit 1
+          # fi
 
           # # Add keychain to the list
           # security list-keychain -d user -s $KEYCHAIN_PATH
