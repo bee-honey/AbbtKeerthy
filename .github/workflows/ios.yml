@@ -58,15 +58,6 @@ jobs:
           PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
           KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
 
-          # apply provisioning profile
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          if [ -f "$PP_PATH" ]; then
-            cp "$PP_PATH" ~/Library/MobileDevice/Provisioning\ Profiles/
-          else
-            echo "Provisioning profile not found: $PP_PATH"
-            exit 1
-          fi
-
           # Import certificate and provisioning profile from secrets
           echo -n "$DIST_BUILD_CERT_BASE64" | base64 --decode -o $CERTIFICATE_PATH
           echo -n "$DIST_BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
@@ -94,4 +85,9 @@ jobs:
 
           # Apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          if [ -f "$PP_PATH" ]; then
+            cp "$PP_PATH" ~/Library/MobileDevice/Provisioning\ Profiles/
+          else
+            echo "Provisioning profile not found: $PP_PATH"
+            exit 1
+          fi
