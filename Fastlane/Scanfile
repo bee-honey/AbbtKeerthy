@@ -1,0 +1,8 @@
+workspace "AbbtKeerthy.xcodeproj/project.xcworkspace"
+scheme "AbbtKeerthyTests"
+sdk "iphonesimulator"
+device "iPhone 15"
+code_coverage false
+xcargs '-parallelizeTargets'
+prelaunch_simulator true
+derived_data_path "Build/"
